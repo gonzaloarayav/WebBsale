@@ -72,13 +72,13 @@ function verificarDatos(nombreProducto, categoriaProducto){
     let url = "";
      //Verifica que no se envien parametros vacios o NaN a la peticion
      if(nombreProducto !== '' && categoriaProducto !== '' && !isNaN(nombreProducto) && !isNaN(categoriaProducto)){
-         url = `http://apirestbsale.herokuapp.com/product/f/${nombreProducto}&${Number(categoriaProducto)}`
+         url = `https://apirestbsale.herokuapp.com/product/f/${nombreProducto}&${Number(categoriaProducto)}`
      }else if(nombreProducto !== '' ){
-         url = `http://apirestbsale.herokuapp.com/product/p/${nombreProducto}`
+         url = `https://apirestbsale.herokuapp.com/product/p/${nombreProducto}`
      }else if( categoriaProducto !== '' && !isNaN(categoriaProducto)){
-         url = `http://apirestbsale.herokuapp.com/product/c/${Number(categoriaProducto)}`
+         url = `https://apirestbsale.herokuapp.com/product/c/${Number(categoriaProducto)}`
      }else{
-         url = `http://apirestbsale.herokuapp.com/product`
+         url = `https://apirestbsale.herokuapp.com/product`
      }
      
     return url
@@ -87,7 +87,7 @@ function verificarDatos(nombreProducto, categoriaProducto){
 //Se realiza peticion GET para obtener las categorias de los productos
 function consultarCategorias(){
 
-    let url=  `http://apirestbsale.herokuapp.com/category/`; //Ruta de API para categorias
+    let url=  `https://apirestbsale.herokuapp.com/category/`; //Ruta de API para categorias
   
     try {
         fetch(url, {
