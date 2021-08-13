@@ -10,22 +10,27 @@ const objBusqueda = {
 //Carga consulta por defecto de productos
 document.addEventListener('DOMContentLoaded', () => {
     consultarCategorias();
-    consultarProductos('');
+    
 
     //Carga los eventos para obtener los valores de los inputs html
-    buscadorInput.addEventListener('change', leerValor);
-    categoriasSelect.addEventListener('change', leerValor);
+    buscadorInput.addEventListener('input', leervalor);
+    categoriasSelect.addEventListener('change', leervalor);
 
     //Carga evento submit del formulario para busqueda de productos y le asigna funcion
     buscadorBtn.addEventListener('submit', validarBusqueda);
 
-
+    consultarProductos('');
 })
 
-function leerValor(e) {
-    //Obtiene el valor del input
+function leervalor(e) {
+    //Obtiene el valor de los input, los asigna al objeto y realiza la consulta para enlistar datos
     objBusqueda[e.target.name] = e.target.value;
+    let {producto, categoria} = objBusqueda;
+    consultarProductos(producto, categoria)
 }
+
+
+
 
 function validarBusqueda(e) {
     e.preventDefault();
@@ -37,7 +42,7 @@ function validarBusqueda(e) {
 
 //Request a la api
 function consultarProductos(nombreProducto, categoriaProducto) {
-    spinner();
+    // spinner();
 
     let url = verificarDatos(nombreProducto, categoriaProducto);
 
@@ -68,9 +73,7 @@ function verificarDatos(nombreProducto, categoriaProducto) {
 
     let url = "";
     //Verifica que no se envien parametros vacios o NaN a la peticion
-    if (nombreProducto !== '' && categoriaProducto !== '' && !isNaN(nombreProducto) && !isNaN(categoriaProducto)) {
-        url = `https://apirestbsale.herokuapp.com/product/f/${nombreProducto}&${Number(categoriaProducto)}`;
-    } else if (nombreProducto !== '') {
+    if (nombreProducto !== '') {
         url = `https://apirestbsale.herokuapp.com/product/p/${nombreProducto}`;
     } else if (categoriaProducto !== '' && !isNaN(categoriaProducto)) {
         url = `https://apirestbsale.herokuapp.com/product/c/${Number(categoriaProducto)}`;
@@ -194,24 +197,24 @@ function limpiarHTML() {
 }
 
 //Agrega function y diseño de spinner para carga
-function spinner() {
-    limpiarHTML();
-    const divSpinner = document.createElement('div');
-    divSpinner.classList.add('sk-circle');
-    divSpinner.innerHTML = `
-            <div class="sk-circle1 sk-child"></div>
-            <div class="sk-circle2 sk-child"></div>
-            <div class="sk-circle3 sk-child"></div>
-            <div class="sk-circle4 sk-child"></div>
-            <div class="sk-circle5 sk-child"></div>
-            <div class="sk-circle6 sk-child"></div>
-            <div class="sk-circle7 sk-child"></div>
-            <div class="sk-circle8 sk-child"></div>
-            <div class="sk-circle9 sk-child"></div>
-            <div class="sk-circle10 sk-child"></div>
-            <div class="sk-circle11 sk-child"></div>
-            <div class="sk-circle12 sk-child"></div>
-    `;
+// function spinner() {
+//     limpiarHTML();
+//     const divSpinner = document.createElement('div');
+//     divSpinner.classList.add('sk-circle');
+//     divSpinner.innerHTML = `
+//             <div class="sk-circle1 sk-child"></div>
+//             <div class="sk-circle2 sk-child"></div>
+//             <div class="sk-circle3 sk-child"></div>
+//             <div class="sk-circle4 sk-child"></div>
+//             <div class="sk-circle5 sk-child"></div>
+//             <div class="sk-circle6 sk-child"></div>
+//             <div class="sk-circle7 sk-child"></div>
+//             <div class="sk-circle8 sk-child"></div>
+//             <div class="sk-circle9 sk-child"></div>
+//             <div class="sk-circle10 sk-child"></div>
+//             <div class="sk-circle11 sk-child"></div>
+//             <div class="sk-circle12 sk-child"></div>
+//     `;
 
-    listadoProductos.appendChild(divSpinner); //Agrega Spinner al DIV de listado de productos ya establecido en el HTML
-}
+//     listadoProductos.appendChild(divSpinner); //Agrega Spinner al DIV de listado de productos ya establecido en el HTML
+// }
